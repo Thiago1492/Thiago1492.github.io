@@ -5,37 +5,38 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" type="text/css" href="style.css" />
-    <title>Resistencias</title>
+    <title> Calculadora de bandas </title>
 
 </head>
 
 <body>
-    <h1> Hola, ¿cómo está?</h1> <br>
+    <h1> Calculadora de bandas</h1> <br>
     <h2> Esta página le servira para calcular las bandas resistoras.</h2>
     <h1>
         Bandas y colores
     </h1>
-    <img src="Thiago1492.github.io\resistor_color_5band.webp" width="455" height="300">
+    <img src="ima.jpg\resistor_color_5band.webp" width="455" height="300">
     <h1> Resistencia de 4 bandas</h1>
-    <img alt="Esta es una resistencia de 4 bandas " src="Thiago1492.github.io/100k-4B.webp" width="300" height="100" >
+    <img alt="Esta es una resistencia de 4 bandas " src="ima.jpg\100k-4B.webp" width="300" height="100" >
    <h1>Resistencia de 5 bandas</h1>
-        <img src="Thiago1492.github.io/Resistencia-de-5-bandas-1.webp " width="300 " height="100">
+        <img src="ima.jpg\Resistencia-de-5-bandas-1.webp " width="300 " height="100">
         <h1> Resistencia de 6 bandas</h1>
-        <img src="Thiago1492.github.io/resistencia_6_bandas.webp" width="300" height="100" >
-        <h1>Calculadora de Resistencias</h1>
+        <img src="ima.jpg\resistencia_6_bandas.webp" width="300" height="100" >
+        <h1>Calculadora de bandas</h1>
 
-        
-        <label for="band-number">Numero de Bandas:</label>
+        <!-- Selección de número de bandas -->
+        <label for="band-number">Numero de Bandas:</label> <br>
         <select id="band-number" onchange="showBands()">
             <option value="4">Cuatro</option>
             <option value="5">Cinco</option>
             <option value="6">Seis</option>
         </select>
     
-        
+        <!-- Bandas dinámicas -->
         <div id="bands-container">
-            
-            <div class="band-option" id="bands-4">
+            <!-- Para 4 bandas -->
+            <div class="band-option" id="bands-4"> 
+                <br>
                 <label for="band1-4">Banda 1:</label>
                 <select id="band1-4">
                     <option value="0">Negro</option>
@@ -86,9 +87,10 @@
                 </select>
             </div>
     
-            
+            <!-- Para 5 bandas -->
             <div class="band-option" id="bands-5">
-                <label for="band1-5">Banda 1:</label>
+                <br>
+                <label for="band1-5">Banda 1:</label> 
                 <select id="band1-5">
                     <option value="0">Negro</option>
                     <option value="1">Marrón</option>
@@ -152,8 +154,9 @@
                 </select>
             </div>
     
-            
-            <div class="band-option" id="bands-6">
+            <!-- Para 6 bandas -->
+             <br>
+            <div class="band-option" id="bands-6"> 
                 <label for="band1-6">Banda 1:</label>
                 <select id="band1-6">
                     <option value="0">Negro</option>
@@ -196,19 +199,7 @@
                     <option value="9">Blanco</option>
                 </select>
     
-                <label for="band4-6">Banda 4:</label>
-                <select id="band4-6">
-                    <option value="0">Negro</option>
-                    <option value="1">Marrón</option>
-                    <option value="2">Rojo</option>
-                    <option value="3">Naranja</option>
-                    <option value="4">Amarillo</option>
-                    <option value="5">Verde</option>
-                    <option value="6">Azul</option>
-                    <option value="7">Violeta</option>
-                    <option value="8">Gris</option>
-                    <option value="9">Blanco</option>
-                </select>
+                
     
                 <label for="multiplier-6">Multiplicador:</label>
                 <select id="multiplier-6">
@@ -230,61 +221,27 @@
                     <option value="5">Dorado (±5%)</option>
                     <option value="10">Plata (±10%)</option>
                 </select>
+                <label for="band4-6">Coeficiente de temperatura:</label>
+                <select id="band4-6">
+                    <option value="100">Marrón</option>
+                    <option value="50">Rojo</option>
+                    <option value="15">Naranja</option>
+                    <option value="25">Amarillo</option>
+                    <option value="10">Azul</option>
+                    <option value="5">Violeta</option>
+                  
+                   
+                </select>
             </div>
         </div>
-    
-        <button onclick="calculate()">Calcular</button>
-    
+        <br>
+        <button onclick="calculate()">Calcular</button>  
+        <p> Resultado = </p> 
         <p id="result"></p>
-    
-        <script>
-            function showBands() {
-                var numBands = document.getElementById("band-number").value;
-    
-                document.querySelectorAll(".band-option").forEach(function(div) {
-                    div.style.display = "none";
-                });
-    
-                document.getElementById("bands-" + numBands).style.display = "block";
-            }
-    
-            function calculate() {
-                var numBands = document.getElementById("band-number").value;
-                var resistance = 0;
-                var resultText = "";
-    
-                if (numBands == 4) {
-                    var band1 = parseFloat(document.getElementById('band1-4').value);
-                    var band2 = parseFloat(document.getElementById('band2-4').value);
-                    var multiplier = parseFloat(document.getElementById('multiplier-4').value);
-                    var tolerance = document.getElementById('tolerance-4').value;
-    
-                    resistance = (band1 * 10 + band2) * multiplier;
-                    resultText = resistance + " ohms ±" + tolerance + "%";
-                } else if (numBands == 5) {
-                    var band1 = parseFloat(document.getElementById('band1-5').value);
-                    var band2 = parseFloat(document.getElementById('band2-5').value);
-                    var band3 = parseFloat(document.getElementById('band3-5').value);
-                    var multiplier = parseFloat(document.getElementById('multiplier-5').value);
-                    var tolerance = document.getElementById('tolerance-5').value;
-    
-                    resistance = (band1 * 100 + band2 * 10 + band3) * multiplier;
-                    resultText = resistance + " ohms ±" + tolerance + "%";
-                } else if (numBands == 6) {
-                    var band1 = parseFloat(document.getElementById('band1-6').value);
-                    var band2 = parseFloat(document.getElementById('band2-6').value);
-                    var band3 = parseFloat(document.getElementById('band3-6').value);
-                    var band4 = parseFloat(document.getElementById('band4-6').value);
-                    var multiplier = parseFloat(document.getElementById('multiplier-6').value);
-                    var tolerance = document.getElementById('tolerance-6').value;
-    
-                    resistance = (band1 * 1000 + band2 * 100 + band3 * 10 + band4) * multiplier;
-                    resultText = resistance + " ohms ±" + tolerance + "%";
-                }
-    
-                document.getElementById("result").innerText = resultText;
-            }
-        </script>
+            <br> 
+            <br>
+            <script src="index.js"></script>
+           
     </body>
     </html>
     
