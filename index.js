@@ -1,30 +1,59 @@
-var colors = ['color-0', 'color-1', 'color-2', 'color-3', 'color-4', 'color-5', 'color-6', 'color-7', 'color-8', 'color-9'];
+function showBands() {
+    var numBands = document.getElementById("band-number").value;
 
-function changeColor(band, direction) {
-    var bandElement = document.getElementById(band);
-    var currentColorClass = bandElement.className.split(' ')[1];
-    var currentIndex = colors.indexOf(currentColorClass);
+    document.querySelectorAll(".band-option").forEach(function(div) {
+        div.style.display = "none";
+    });
 
-    var newIndex = (currentIndex + direction + colors.length) % colors.length;
-    bandElement.className = 'color-dot ' + colors[newIndex];
-
-    // Mueve la bolita a la posición correcta
-    bandElement.style.top = (newIndex * 30) + 'px'; // Mueve la bolita por cada color
+    
+    if (numBands) {
+        document.getElementById("bands-" + numBands).style.display = "block";
+    }
 }
+document.addEventListener("DOMContentLoaded", function() {
+    showBands();
+});
+
+
 
 function calculate() {
-    var band1Color = document.getElementById('band1').className.split(' ')[1].split('-')[1];
-    var band2Color = document.getElementById('band2').className.split(' ')[1].split('-')[1];
-    var multiplierColor = document.getElementById('multiplier').className.split(' ')[1].split('-')[1];
-    var toleranceColor = document.getElementById('tolerance').className.split(' ')[1].split('-')[1];
+    var numBands = document.getElementById("band-number").value;
+    var resistance = 0;
+    var resultText = "";
 
-    var band1 = parseInt(band1Color);
-    var band2 = parseInt(band2Color);
-    var multiplier = Math.pow(10, parseInt(multiplierColor));
-    var tolerance = parseInt(toleranceColor) * 10; // Cambia este valor si tienes otros valores de tolerancia
+    if (numBands == 4) {
+            var band1 = parseFloat(document.getElementById('band1-4').value);
 
-    var resistance = (band1 * 10 + band2) * multiplier;
-    var resultText = resistance + " ohms ±" + tolerance + "%";
+        var band2 = parseFloat(document.getElementById('band2-4').value);
+        var multiplier = parseFloat(document.getElementById('multiplier-4').value);
+        var tolerance = document.getElementById('tolerance-4').value;
 
+        resistance = (band1 * 10 + band2) * multiplier;
+        resultText = resistance + " ohms ±" + tolerance + "%";
+    } else if (numBands == 5) {
+        var band1 = parseFloat(document.getElementById('band1-5').value);
+        var band2 = parseFloat(document.getElementById('band2-5').value);
+        var band3 = parseFloat(document.getElementById('band3-5').value);
+        var multiplier = parseFloat(document.getElementById('multiplier-5').value);
+        var tolerance = document.getElementById('tolerance-5').value;
+
+        resistance = (band1 * 100 + band2 * 10 + band3) * multiplier;
+        resultText = resistance + " ohms ±" + tolerance + "%";
+    } else if (numBands == 6) {
+        var band1 = parseFloat(document.getElementById('band1-6').value);
+        var band2 = parseFloat(document.getElementById('band2-6').value);
+        var band3 = parseFloat(document.getElementById('band3-6').value);
+        var band4 = parseFloat(document.getElementById('band4-6').value);
+        var multiplier = parseFloat(document.getElementById('multiplier-6').value);
+        var tolerance = document.getElementById('tolerance-6').value;
+        
+        resistance = (band1 * 1000 + band2 * 100 + band3 * 10 + band4) * multiplier;
+        resultText = resistance + " ohms ±" + tolerance + "%" + band4 + " ppm/C°";
+
+    }   
+    
+   
     document.getElementById("result").innerText = resultText;
+
 }
+
